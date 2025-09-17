@@ -1,15 +1,11 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 
 const Hero = () => {
   return (
-    <motion.section
+    <section
       className="section hero"
       aria-label="Home section"
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -50 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+     
     >
       <div className="container">
         <div className="hero-content">
@@ -27,23 +23,20 @@ const Hero = () => {
           </Link>
         </div>
 
-        <motion.figure
+        <figure
           className="hero-banner"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
         >
           <img
-            src="/images/hero-banner.png"
+            src="/assets/images/hero-banner.png"
             width={680}
             height={645}
             alt="Annie Carter, the blonde, dressed in a green hoodie with a smile on her face"
             className="w-100"
             loading="lazy"
           />
-        </motion.figure>
+        </figure>
       </div>
-    </motion.section>
+    </section>
   );
 };
 

@@ -47,7 +47,7 @@ const Header = () => {
       <div className="container">
         <Link to="/" className="logo" aria-label="Home">
           <img
-            src="/images/logo.svg"
+            src="/assets/images/logo.svg"
             width={151}
             height={28}
             alt="Annie Home Logo"

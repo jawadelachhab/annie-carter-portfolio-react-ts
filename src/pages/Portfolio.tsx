@@ -1,11 +1,18 @@
-import { motion } from "framer-motion";
-import { type TPortfolio } from "@/types/portfolio";
-import PortfolioCard from "@/components/pages/portfolio/PortfolioCard";
-import "@/styles/pages/portfolio.css";
+import { FaArrowRight } from "react-icons/fa6";
+import "@/assets/css/pages/portfolio.css";
 
-const portfolioData: TPortfolio[] = [
+interface PortfolioItem {
+  image: string;
+  alt: string;
+  category: string;
+  title: string;
+  description: string;
+  projectLink: string;
+}
+
+const portfolioData: PortfolioItem[] = [
   {
-    image: "/images/portfolio-1.jpg",
+    image: "/assets/images/portfolio-1.jpg",
     alt: "Website Design for Marketing Agency Startup",
     category: "Web Design",
     title: "Website Design for Marketing Agency Startup",
@@ -14,7 +21,7 @@ const portfolioData: TPortfolio[] = [
     projectLink: "#",
   },
   {
-    image: "/images/portfolio-2.jpg",
+    image: "/assets/images/portfolio-2.jpg",
     alt: "E-commerce Web Platform for Lifestyle Brand",
     category: "Web Design",
     title: "E-commerce Web Platform for Lifestyle Brand",
@@ -23,7 +30,7 @@ const portfolioData: TPortfolio[] = [
     projectLink: "#",
   },
   {
-    image: "/images/portfolio-3.jpg",
+    image: "/assets/images/portfolio-3.jpg",
     alt: "Landing Page Design for SaaS Product",
     category: "Web Design",
     title: "Landing Page Design for SaaS Product",
@@ -32,7 +39,7 @@ const portfolioData: TPortfolio[] = [
     projectLink: "#",
   },
   {
-    image: "/images/portfolio-4.jpg",
+    image: "/assets/images/portfolio-4.jpg",
     alt: "Branding and Website for Creative Studio",
     category: "Web Design",
     title: "Branding and Website for Creative Studio",
@@ -42,39 +49,9 @@ const portfolioData: TPortfolio[] = [
   },
 ];
 
-// Animation variants
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.3,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: "spring" as const,
-      duration: 0.7,
-      bounce: 0.3,
-    },
-  },
-};
-
 const Portfolio = () => {
   return (
-    <motion.section
-      className="section portfolio"
-      aria-labelledby="portfolio-label"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
-      variants={containerVariants}
-    >
+    <section className="section portfolio" aria-labelledby="portfolio-label">
       <div className="container">
         <h2
           className="section-title headline-md text-center"
@@ -83,15 +60,53 @@ const Portfolio = () => {
           Latest Projects
         </h2>
 
-        <motion.ul className="portfolio-list" role="list" variants={containerVariants}>
-          {portfolioData.map((portfolio, index) => (
-            <motion.li key={index} variants={itemVariants}>
-              <PortfolioCard {...portfolio} />
-            </motion.li>
-          ))}
-        </motion.ul>
+        <ul className="portfolio-list" role="list">
+          {portfolioData.map(
+            (
+              { image, alt, category, title, description, projectLink },
+              index
+            ) => (
+              <li key={index}>
+                <li role="listitem">
+                  <article className="portfolio-card" aria-label={title}>
+                    <div className="card-banner img-holder">
+                      <img
+                        src={image}
+                        width="800"
+                        height="540"
+                        loading="lazy"
+                        alt={alt}
+                        className="img-cover"
+                      />
+                      <a
+                        href={projectLink}
+                        className="btn-icon"
+                        aria-label={`More about ${title}`}
+                      >
+                        <FaArrowRight aria-hidden="true" />
+                      </a>
+                    </div>
+
+                    <div className="card-content">
+                      <span className="chip label-md">{category}</span>
+                      <h3 className="title-md">{title}</h3>
+                      <p className="card-text">{description}</p>
+                      <a
+                        href={projectLink}
+                        className="btn btn-primary"
+                        aria-label={`View project: ${title}`}
+                      >
+                        View Project
+                      </a>
+                    </div>
+                  </article>
+                </li>
+              </li>
+            )
+          )}
+        </ul>
       </div>
-    </motion.section>
+    </section>
   );
 };
 

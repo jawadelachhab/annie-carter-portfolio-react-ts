@@ -1,10 +1,9 @@
 import { FaPhone, FaEnvelope, FaLocationDot } from "react-icons/fa6";
-import { motion } from "framer-motion";
-import "@/styles/pages/contact.css";
+import "@/assets/css/pages/contact.css";
 
 const contactDetails = [
   {
-    id: "phone",
+  
     label: "Phone",
     value: "+01 123 654 8096",
     href: "tel:+011236548096",
@@ -12,7 +11,7 @@ const contactDetails = [
     bgColor: "hsl(177, 39%, 72%)",
   },
   {
-    id: "email",
+  
     label: "Email",
     value: "info@domainname.com",
     href: "mailto:info@domainname.com",
@@ -20,7 +19,6 @@ const contactDetails = [
     bgColor: "hsl(41, 99%, 64%)",
   },
   {
-    id: "location",
     label: "Visit My Studio",
     value: "Warnwe Park Streetperrine, FL 33157 New York City",
     icon: <FaLocationDot size={30} aria-hidden="true" />,
@@ -28,39 +26,14 @@ const contactDetails = [
   },
 ];
 
-// Animation Variants
-const containerVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { 
-      duration: 0.8,
-      when: "beforeChildren",
-      staggerChildren: 0.3,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, x: -20 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { type: "spring" as const, duration: 0.6, bounce: 0.3 },
-  },
-};
 
 const Contact = () => {
   return (
-    <motion.section
+    <section
       className="section contact has-bg-image"
       aria-labelledby="contact-label"
-      style={{ backgroundImage: 'url("/images/contact-bg.png")' }}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
-      variants={containerVariants}
+      style={{ backgroundImage: 'url("/assets/images/contact-bg.png")' }}
+     
     >
       <div className="container">
         {/* Contact Form */}
@@ -138,17 +111,14 @@ const Contact = () => {
         </form>
 
         {/* Contact Info */}
-        <motion.div className="contact-content">
-          <motion.ul
+        <div className="contact-content">
+          <ul
             className="contact-list"
             aria-label="Contact Information"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            
           >
-            {contactDetails.map(({ id, label, value, href, icon, bgColor }) => (
-              <motion.li key={id} className="contact-item" variants={itemVariants}>
+            {contactDetails.map(({ label, value, href, icon, bgColor },index) => (
+              <li key={index} className="contact-item" >
                 <div className="item-icon" style={{ backgroundColor: bgColor }}>
                   {icon}
                 </div>
@@ -162,12 +132,12 @@ const Contact = () => {
                     <address className="body-lg">{value}</address>
                   )}
                 </div>
-              </motion.li>
+              </li>
             ))}
-          </motion.ul>
-        </motion.div>
+          </ul>
+        </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 

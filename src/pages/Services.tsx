@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import React from "react";
 import {
   FaLaptopCode,
   FaMobileScreen,
@@ -7,11 +7,16 @@ import {
   FaChalkboard,
   FaCode,
 } from "react-icons/fa6";
-import "@/styles/pages/service.css";
-import { type TService } from "@/types/service";
-import ServiceCard from "@/components/pages/services/ServiceCard";
+import "@/assets/css/pages/service.css";
 
-const servicesData: TService[] = [
+interface ServiceItem {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  bgColor: string;
+}
+
+const servicesData: ServiceItem[] = [
   {
     icon: <FaMobileScreen size={30} aria-hidden="true" />,
     title: "Web Design",
@@ -56,39 +61,12 @@ const servicesData: TService[] = [
   },
 ];
 
-// Animation variants
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.25,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: "spring" as const,
-      duration: 0.7,
-      bounce: 0.3,
-    },
-  },
-};
-
 const Services = () => {
   return (
-    <motion.section
+    <section
       className="section service has-bg-image"
       aria-labelledby="service-label"
-      style={{ backgroundImage: 'url("/images/service-bg.png")' }}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
-      variants={containerVariants}
+      style={{ backgroundImage: 'url("/assets/images/service-bg.png")' }}
     >
       <div className="container">
         <h2
@@ -98,15 +76,27 @@ const Services = () => {
           My Services
         </h2>
 
-        <motion.ul className="service-list" role="list" variants={containerVariants}>
-          {servicesData.map((service, index) => (
-            <motion.li key={index} variants={itemVariants}>
-              <ServiceCard {...service} />
-            </motion.li>
+        <ul className="service-list" role="list">
+          {servicesData.map(({ icon, title, description, bgColor }, index) => (
+            <li key={index}>
+              <li className="card-container" role="listitem">
+                <article
+                  className="card card-md"
+                  style={{ backgroundColor: bgColor }}
+                  aria-label={title}
+                >
+                  <div className="card-media">{icon}</div>
+                  <div>
+                    <h3 className="card-title title-sm">{title}</h3>
+                    <p className="body-sm">{description}</p>
+                  </div>
+                </article>
+              </li>
+            </li>
           ))}
-        </motion.ul>
+        </ul>
       </div>
-    </motion.section>
+    </section>
   );
 };
 
